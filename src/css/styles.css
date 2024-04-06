@@ -1,25 +1,96 @@
-/**
-  |============================
-  | include css partials with
-  | default @import url()
-  |============================
-*/
-@import url('./reset.css');
-@import url('./vite-promo.css');
-@import url('./header.css');
+.form-box {
+   
+    display: flex;
+    justify-content: space-around;
+   margin-top: 40px;
+   margin-bottom: 40px;
+    
+}
+.sbmt-btn {
+    height: 30px;
 
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
+}
+#searchInput {
+    height: 30px;
+    font-size: 18px;
+}
+.image-container {
+    border: 2px solid black;
+    width: calc(33.33% - 20px);
+    display: block;
+        
+        height: fit-content;
+}
+img {
+    width: 100%;
+    height: auto;
+    border: 1px solid black;
+}
+.info-container {
+    display: flex;
+    font-size: 18px;
+    justify-content: space-evenly;
+}
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap:10px;
 
-  color: #242424;
-  background-color: rgba(255, 255, 255, 0.87);
+    
+   
+}
+.info-item {
+    text-decoration: none;
+    color: black;
+    ;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    position: relative;
+    animation: pulse 1s linear infinite;
+}
+
+.loader:after {
+    content: '';
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: scaleUp 1s linear infinite;
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: translate(-50%, -50%) scale(0)
+    }
+
+    60%,
+    100% {
+        transform: translate(-50%, -50%) scale(1)
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    60%,
+    100% {
+        transform: scale(1)
+    }
+
+    80% {
+        transform: scale(1.2)
+    }
 }
