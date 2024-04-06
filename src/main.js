@@ -8,22 +8,29 @@ let currentPage = 1;
 const apiKey = "43152327-599555690163c4dbf744e6761";
 
 const loadMoreBtn = document.getElementById("loadMoreBtn");
-loadMoreBtn.style.display = "none"; 
+const loader = document.getElementById("loader");
+const gallery = document.getElementById("gallery");
+
+loadMoreBtn.style.display = "none";
 
 loadMoreBtn.addEventListener("click", async () => {
     try {
         const data = await fetchImages(searchQuery, apiKey, ++currentPage);
         if (data.hits.length === 0) {
-            loadMoreBtn.style.display = "none"; 
+            loadMoreBtn.style.display = "none";
+            iziToast.info({
+                title: "Info",
+                message: "We're sorry, but you've reached the end of search results.",
+                position: "topCenter"
+            });
         } else {
             displayImages(data.hits);
+            smoothScrollBy(getGalleryCardHeight() * 2);
         }
     } catch (error) {
         console.error(error);
     }
 });
-
-const loader = document.getElementById("loader");
 
 document.getElementById("searchForm").addEventListener("submit", async evt => {
     evt.preventDefault();
@@ -51,11 +58,21 @@ document.getElementById("searchForm").addEventListener("submit", async evt => {
                 message: "Sorry, there are no images matching your search query. Please try again!",
                 position: "topCenter"
             });
-            loadMoreBtn.style.display = "none"; 
+            loadMoreBtn.style.display = "none";
         } else {
             loader.style.display = "none";
             displayImages(data.hits);
-            loadMoreBtn.style.display = "block"; 
+            if (data.totalHits <= currentPage * 15) {
+                loadMoreBtn.style.display = "none";
+                iziToast.info({
+                    title: "Info",
+                    message: "We're sorry, but you've reached the end of search results.",
+                    position: "topCenter"
+                });
+            } else {
+                loadMoreBtn.style.display = "block";
+            }
+            smoothScrollBy(getGalleryCardHeight() * 2);
         }
     } catch (error) {
         loader.style.display = "none";
@@ -66,3 +83,27 @@ document.getElementById("searchForm").addEventListener("submit", async evt => {
         });
     }
 });
+
+function getGalleryCardHeight() {
+    const firstGalleryCard = gallery.querySelector(".image-container");
+    const cardHeight = firstGalleryCard.getBoundingClientRect().height;
+    return cardHeight;
+}
+
+function smoothScrollBy(distance, duration = 500) {
+    const initialY = window.scrollY;
+    const targetY = initialY + distance;
+    const startTime = performance.now();
+
+    function step() {
+        const normalizedTime = (performance.now() - startTime) / duration;
+        if (normalizedTime < 1) {
+            window.scrollTo(0, initialY + distance * normalizedTime);
+            requestAnimationFrame(step);
+        } else {
+            window.scrollTo(0, targetY);
+        }
+    }
+
+    requestAnimationFrame(step);
+}

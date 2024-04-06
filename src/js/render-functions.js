@@ -1,11 +1,14 @@
+
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
 let lightbox;
 
+
+
+
 export function displayImages(images) {
     const gallery = document.getElementById("gallery");
-    gallery.innerHTML = ""; 
 
     images.forEach(image => {
         const imageLink = document.createElement("a");
@@ -20,9 +23,9 @@ export function displayImages(images) {
         infoContainer.classList.add("info-container");
         infoContainer.innerHTML = `
             <p class="info-item">Likes: ${image.likes}</p>
-            <p  class="info-item">Views: ${image.views}</p>
-            <p  class="info-item">Comments: ${image.comments}</p>
-            <p  class="info-item">Downloads: ${image.downloads}</p>
+            <p class="info-item">Views: ${image.views}</p>
+            <p class="info-item">Comments: ${image.comments}</p>
+            <p class="info-item">Downloads: ${image.downloads}</p>
         `;
 
         imageLink.appendChild(img);
