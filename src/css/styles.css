@@ -6,11 +6,23 @@
    margin-bottom: 40px;
     
 }
-.sbmt-btn {
+ .sbmt-btn {
     height: 35px;
     background-color: blueviolet;
     color: #FFF;
 
+}
+
+#loadMoreBtn {
+    height: 35px;
+        background-color: blueviolet;
+        color: #FFF;
+}
+.load-more-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 #searchInput {
     height: 30px;
