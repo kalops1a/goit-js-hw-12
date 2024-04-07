@@ -13,6 +13,9 @@ const gallery = document.getElementById("gallery");
 
 loadMoreBtn.style.display = "none";
 
+ 
+
+    
 loadMoreBtn.addEventListener("click", async () => {
     try {
         const data = await fetchImages(searchQuery, apiKey, ++currentPage);
@@ -34,12 +37,15 @@ loadMoreBtn.addEventListener("click", async () => {
 
 document.getElementById("searchForm").addEventListener("submit", async evt => {
     evt.preventDefault();
-
+gallery.innerHTML = "";
     loader.style.display = "block";
+    
 
     searchQuery = document.getElementById("searchInput").value.trim();
     
     if (searchQuery === "") {
+        loader.style.display = "none";
+        gallery.innerHTML = "";
         iziToast.error({
             title: "Alert",
             message: "Please enter a value.",
@@ -47,6 +53,8 @@ document.getElementById("searchForm").addEventListener("submit", async evt => {
         });
         return;
     }
+
+   
 
     try {
         currentPage = 1;
@@ -76,6 +84,7 @@ document.getElementById("searchForm").addEventListener("submit", async evt => {
         }
     } catch (error) {
         loader.style.display = "none";
+        gallery.innerHTML = "";
         iziToast.error({
             title: "Error",
             message: error.message,
